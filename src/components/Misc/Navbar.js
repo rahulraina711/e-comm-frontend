@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux';
 //import domain from '../../utility/domain';
 
 function Navbar (){
-    const count = useSelector(state=>state.cartLength);
+    const count = useSelector(state=>state.cartLength=state.cartItems.length);
     const searchBtnIcon = "https://img.icons8.com/pastel-glyph/64/000000/search--v1.png"
     return(
         <div className="navbar">
             <div className="navbar-top">
-                <Link to="/"><img id="logo" src={logo} alt="logo" style={{width:"64px", height:"64px"}}/></Link>
+                <a href="/"><img id="logo" src={logo} alt="logo" style={{width:"64px", height:"64px"}}/></a>
                 <div className="search-section"><input className="search-bar" type="text"/><button><img src={searchBtnIcon} alt="search"/></button></div>
                 <div className="cart"><Link to="/cart">Cart {count}</Link></div>
                 <div className="sign-in-section">Sign In Section</div>

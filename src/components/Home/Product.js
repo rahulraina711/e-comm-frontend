@@ -6,28 +6,26 @@ import "./Product.scss";
 import domain from '../../utility/domain';
 import axios from 'axios';
 
+
 function Product(props){
     const dispatch = useDispatch();
+    const cartItems = useSelector(state=>state.cartItems);
 
-    const count = useSelector(state=>state.cartLength);
+    //const count = useSelector(state=>state.cartLength);
 
     const id = props.product._id
     const [a2c, seta2c] = useState("+")
 
     useEffect(()=>{
-        console.log(count);
-        getOrders();
+        getOrdersId();
     },[]);
 
-    async function getOrders() {
-        let x = await axios.get(domain+"/orders")
-        let y = x.data
-        let a = [];
-        for(let i=0;i<y.length-1;i++){
-            a.push(y[i].productId._id);
+    function getOrdersId() {
+        const arrItems = props.orderIds;
+        if (arrItems.includes(props.product._id)){
+            seta2c("added");
         }
-        if (a.includes(id)) return seta2c("added");
-    }
+    };
 
     async function addOrder() {
         console.log(id);

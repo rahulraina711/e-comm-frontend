@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './cart.scss'
 import Order from './Order';
 
 function Cart(){
-    const orders = useSelector(state=>state.cartItems)
-    console.log(orders);
+    const [orders, setOrders] = useState([]);
+    const getOrders = useSelector(state=>state.cartItems);
     
     function renderProducts(){
-        let orderList = orders;
+        let orderList = [...getOrders];
         return orderList.map((product, i)=>{
             return <Order key={i} product={product.productId}/>
         })

@@ -8,31 +8,44 @@ import Product from './Product';
 import { useDispatch } from 'react-redux';
 
 function Home(){
-    const [products, setProducts] = useState([])
+
+    const [products, setProducts] = useState([]);
+    const [orderIds, setOrderIds] = useState([]);
     const dispatch = useDispatch();
+
     useEffect(()=>{
-        getProducts();
         getOrders();
     },[]);
     async function getOrders(){
+        const orderIdxs = [];
         const orderRes = await axios.get(domain+"/orders");
         //console.log("orders here",orderRes.data);
         const orders = orderRes.data;
-        orders.map(order=> dispatch({type:"setCart", payload:{ order}}))
-        dispatch({type:"setCart", payload :{ count: orders.length}});
-        
+        for(let i=0; i<orders.length; i++){
+            orderIdxs.push(orders[i].productId._id)
+            dispatch({
+                type:"setCart",
+                payload:{
+                    order:orders[i]
+                }
+            });
+            console.log(orders[i]);
+            
+        }  
+        getProducts();   
+        setOrderIds(orderIdxs)
     }   
 
     async function getProducts(){
         const productRes = await axios.get(domain+"/products");
-        console.log(productRes.data);
+        //console.log(productRes.data);
         setProducts(productRes.data);
     }
 
     function renderProducts(){
         let productList = products;
         return productList.map((product, i)=>{
-            return <Product key={i} product={product} />
+            return <Product key={i} product={product} orderIds={orderIds}/>
         })
     }
 
