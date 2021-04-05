@@ -1,0 +1,1 @@
+export default process.env.NODE_ENV === "development" ? "http://localhost:3100" : process.env.NODE_ENV === "production" && "heroku server here"

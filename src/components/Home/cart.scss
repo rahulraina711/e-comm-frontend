@@ -1,0 +1,17 @@
+#cart-main{
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .cart{
+        padding: 10px;
+        font-size: 25px;
+        border-radius: 10px;
+        border-bottom: black solid 2px;
+    }
+    .total{
+        padding: 10px;
+        font-size: 25px;
+    }
+}

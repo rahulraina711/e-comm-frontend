@@ -1,0 +1,59 @@
+.navbar{
+    background: white;
+
+    .navbar-top{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        
+        #logo{
+            transition: 5s ease-in-out;
+            &:hover{
+                transform: rotate(360deg);
+            }
+        }
+
+        .search-section{
+            display: flex;
+            .search-bar{
+                padding: 10px;
+                width: 650px;
+                border: 2px dotted black;
+                margin-right: 10px;
+            }
+            button{
+                background: none;
+                transition: 0.5s;
+                    img{
+                        height: 48px;
+                        width: 48px;
+                    }
+                &:hover{
+                    cursor: pointer;
+                    background: grey;
+                }
+            }
+        }
+        .sign-in-section{
+            background: yellow;
+        }
+    }
+    .navbar-bottom{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        button{
+            border: unset;
+            background: unset;
+            font-size: 20px;
+            padding: 20px;
+            &:hover{
+                background: grey;
+                color: white;
+                cursor: pointer;
+            }
+
+        }
+    }
+    
+}
