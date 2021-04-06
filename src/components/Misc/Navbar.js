@@ -2,11 +2,11 @@ import logo from './logo.png';
 import React from 'react';
 import './navbar.scss';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 //import domain from '../../utility/domain';
 
 function Navbar (){
-    const count = useSelector(state=>state.cartLength=state.cartItems.length);
+    const count = useSelector(state=>state.cartInt) || 0;
     const searchBtnIcon = "https://img.icons8.com/pastel-glyph/64/000000/search--v1.png"
     return(
         <div className="navbar">

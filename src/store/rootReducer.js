@@ -1,24 +1,35 @@
 const initialState = {
-    cartLength: 0,
-    cartItems: []
+    cartInt: 0,
+    cart: [],
+    cartTotal:0
 }
 
 function rootReducer(state = initialState, action) {
 
     switch (action.type) {
+        
+        case "setCart":
+            return { 
+                ...state,
+                cartInt : action.payload.cartInt,
+                cart: [...state.cart, action.payload.cart],
+                cartTotal: action.payload.cartTotal
+             }
         case "addToCart":
             return {
-                cartLength: state.cartLength + 1
+                ...state,
+                cartInt : state.cartInt+1,
+                cart: [...state.cart[0], action.payload.item],
+                cartTotal: state.cartTotal+action.payload.price
             }
         case "removeFromCart":
-            return {
-                cartLength: state.cartLength - 1
+            const orderId = action.payload.id;
+            
+            return{
+                cartInt : state.cartInt-1,
+                cart: [...state.cart].filter(item=> item._id !== orderId),
+                cartTotal: state.cartTotal-action.payload.price
             }
-        case "setCart":
-            return {
-                cartLength: action.payload.count,
-                cartItems: [...state.cartItems,action.payload.order]
-                }
         default:
             return state;
     }

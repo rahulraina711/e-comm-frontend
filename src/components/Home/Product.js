@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import "./Product.scss";
 import domain from '../../utility/domain';
@@ -9,39 +9,36 @@ import axios from 'axios';
 
 function Product(props){
     const dispatch = useDispatch();
-    const cartItems = useSelector(state=>state.cartItems);
-
-    //const count = useSelector(state=>state.cartLength);
-
-    const id = props.product._id
-    const [a2c, seta2c] = useState("+")
-
+    const id = props.product._id;
+    const [a2c, seta2c] = useState("+");
     useEffect(()=>{
-        getOrdersId();
-    },[]);
+        setState();
+    },[])
 
-    function getOrdersId() {
-        const arrItems = props.orderIds;
-        if (arrItems.includes(props.product._id)){
-            seta2c("added");
-        }
-    };
+    async function setState(){
+        //const orderIdList = []
+        const orderRes= await axios.get(domain+"/orders");
+        const orderList = orderRes.data.filter(item=> item.productId._id===id);
+        // console.log(orderList);
+        await orderList[0] ? seta2c("added") : seta2c("+");
+    }
 
-    async function addOrder() {
+    async function changeState(){
         console.log(id);
         const orderDetail= {
                 "productId":id,
                 "quantity":1
             }
         const placeOrder =await axios.post(domain+"/orders", orderDetail);
-        //console.log(placeOrder);
-        seta2c("added");
-    }
-
-    function changeState(){
+        console.log(placeOrder.data);
         if(a2c!=="added"){
-            dispatch({type:"addToCart"});
-            addOrder();
+            dispatch({
+                type:"addToCart",
+                payload:{
+                    item:placeOrder.data,
+                    price:props.product.price
+                }
+            })
             seta2c('added');
         }
         else{
